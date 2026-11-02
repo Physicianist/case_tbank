@@ -1,0 +1,1069 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Путь клиента: от клика по рекламе до отправки заявки",
+    "subtitle": "Типовая схема для понимания, не фактическая архитектура Т-Банка. Цветной блок — шаг и кто за него отвечает, красный — что может сломаться",
+    "locale": "ru",
+    "output": "build/landing-client-path.html",
+    "quality_profile": "showcase",
+    "legend": {
+      "entries": {
+        "external": {
+          "label": "Внешние сервисы"
+        },
+        "cloud": {
+          "label": "Сеть и защита"
+        },
+        "backend": {
+          "label": "Серверы банка"
+        },
+        "frontend": {
+          "label": "Устройство и браузер клиента"
+        },
+        "security": {
+          "label": "Что может сломаться"
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "click",
+      "type": "external",
+      "label": "1. Клик по объявлению",
+      "sublabel": "Яндекс Директ, VK Реклама",
+      "pos": [
+        32,
+        70
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "click_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Ссылка ведёт не туда",
+      "sublabel": "лендинг удалён, а реклама крутится",
+      "tag": "опечатка или старый адрес в объявлении",
+      "pos": [
+        32,
+        160
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "tracker",
+      "type": "external",
+      "label": "2. Переход через трекер",
+      "sublabel": "трекинг кликов, UTM-метки",
+      "pos": [
+        264,
+        70
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "tracker_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Трекер упал — клик потерян",
+      "sublabel": "слишком длинная цепочка переходов",
+      "tag": "метки теряются, аналитика врёт",
+      "pos": [
+        264,
+        160
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "dns",
+      "type": "cloud",
+      "label": "3. Поиск адреса сайта",
+      "sublabel": "DNS — «адресная книга» сети",
+      "pos": [
+        496,
+        70
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "dns_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Адрес не находится",
+      "sublabel": "не продлили домен",
+      "tag": "ошибка в настройке после изменений",
+      "pos": [
+        496,
+        160
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "https",
+      "type": "cloud",
+      "label": "4. Защищённое соединение",
+      "sublabel": "HTTPS, SSL-сертификат",
+      "pos": [
+        728,
+        70
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "https_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Сертификат истёк",
+      "sublabel": "браузер пишет «сайт небезопасен»",
+      "tag": "старые телефоны не доверяют сертификату",
+      "pos": [
+        728,
+        160
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "waf",
+      "type": "cloud",
+      "label": "5. Проверка на атаки",
+      "sublabel": "WAF, защита от DDoS и ботов",
+      "pos": [
+        960,
+        70
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "waf_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Живой клиент заблокирован",
+      "sublabel": "фильтр принял человека за бота",
+      "tag": "атака перегрузила сайт",
+      "pos": [
+        960,
+        160
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "cdn",
+      "type": "cloud",
+      "label": "6. Ближайшая копия сайта",
+      "sublabel": "CDN — сеть серверов-копий",
+      "pos": [
+        32,
+        340
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "cdn_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Отдаёт старую версию",
+      "sublabel": "запомнил и раздаёт страницу ошибки",
+      "tag": "сбой узла в одном регионе",
+      "pos": [
+        32,
+        430
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "lb",
+      "type": "backend",
+      "label": "7. Распределение нагрузки",
+      "sublabel": "балансировщик",
+      "pos": [
+        264,
+        340
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "lb_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Все серверы «недоступны»",
+      "sublabel": "наплыв трафика — отказы",
+      "tag": "ошибка в правилах после настройки",
+      "pos": [
+        264,
+        430
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "server",
+      "type": "backend",
+      "label": "8. Сервер лендингов",
+      "sublabel": "веб-сервер, CMS лендингов",
+      "pos": [
+        496,
+        340
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "server_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Ошибка 500 — сервер упал",
+      "sublabel": "сломался после выкладки обновления",
+      "tag": "отвечает слишком медленно",
+      "pos": [
+        496,
+        430
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "route",
+      "type": "backend",
+      "label": "9. Выдача нужной страницы",
+      "sublabel": "маршрутизация, редиректы",
+      "pos": [
+        728,
+        340
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "route_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Ошибка 404 — нет страницы",
+      "sublabel": "бесконечная переадресация",
+      "tag": "открывается не тот лендинг",
+      "pos": [
+        728,
+        430
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "device",
+      "type": "frontend",
+      "label": "10. Определение устройства",
+      "sublabel": "адаптивная вёрстка",
+      "pos": [
+        32,
+        746
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "device_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Не та версия страницы",
+      "sublabel": "телефону отдали версию для ПК",
+      "tag": "планшет не распознан",
+      "pos": [
+        32,
+        836
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "mobile",
+      "type": "frontend",
+      "label": "11а. Смартфон",
+      "sublabel": "iOS Safari, Android Chrome",
+      "pos": [
+        264,
+        706
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "mobile_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Вёрстка «поехала»",
+      "sublabel": "кнопка ушла за край экрана",
+      "tag": "браузер внутри Telegram/VK, старый iOS",
+      "pos": [
+        264,
+        610
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "laptop",
+      "type": "frontend",
+      "label": "11б. Ноутбук",
+      "sublabel": "Windows, macOS: Chrome, Edge, Safari",
+      "pos": [
+        264,
+        786
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "laptop_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Не работает в одном браузере",
+      "sublabel": "блокировщик рекламы режет скрипты",
+      "tag": "Firefox и Safari показывают иначе",
+      "pos": [
+        264,
+        876
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "assets",
+      "type": "frontend",
+      "label": "12. Картинки, шрифты, стили",
+      "sublabel": "файлы оформления с CDN",
+      "pos": [
+        496,
+        746
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "assets_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Страница «голая»",
+      "sublabel": "не загрузились стили или шрифты",
+      "tag": "тяжёлые картинки — долгая загрузка",
+      "pos": [
+        496,
+        836
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "scripts",
+      "type": "external",
+      "label": "13. Сторонние скрипты",
+      "sublabel": "Метрика, онлайн-чат, A/B-тесты",
+      "pos": [
+        728,
+        746
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "scripts_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Чужой скрипт ломает всё",
+      "sublabel": "ошибка в коде — кнопки не работают",
+      "tag": "внешний сервис завис и тормозит",
+      "pos": [
+        728,
+        836
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "ready",
+      "type": "frontend",
+      "label": "14. Страница готова",
+      "sublabel": "скорость загрузки",
+      "pos": [
+        960,
+        746
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "ready_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Грузится дольше 3 секунд",
+      "sublabel": "клиент уходит, не дождавшись",
+      "tag": "медленный мобильный интернет",
+      "pos": [
+        960,
+        836
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "form",
+      "type": "frontend",
+      "label": "15. Заполнение формы",
+      "sublabel": "код формы на странице",
+      "pos": [
+        32,
+        1030
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "form_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Поле не нажимается",
+      "sublabel": "клавиатура закрывает кнопку",
+      "tag": "автозаполнение вставляет мусор",
+      "pos": [
+        32,
+        1120
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "validate",
+      "type": "frontend",
+      "label": "16. Проверка полей",
+      "sublabel": "маски ввода, валидация",
+      "pos": [
+        264,
+        1030
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "validate_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Верный номер «не принят»",
+      "sublabel": "маска не понимает +7 и 8",
+      "tag": "непонятный текст ошибки",
+      "pos": [
+        264,
+        1120
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "captcha",
+      "type": "cloud",
+      "label": "17. Защита от ботов",
+      "sublabel": "капча, антифрод",
+      "pos": [
+        496,
+        1030
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "captcha_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Капча не грузится",
+      "sublabel": "человек не может её пройти",
+      "tag": "антифрод отсёк живого клиента",
+      "pos": [
+        496,
+        1120
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "submit",
+      "type": "backend",
+      "label": "18. Отправка заявки",
+      "sublabel": "сервис приёма заявок (API)",
+      "pos": [
+        728,
+        1030
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "submit_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Сервис заявок недоступен",
+      "sublabel": "ожидание ответа оборвалось",
+      "tag": "данные не сохранились",
+      "pos": [
+        728,
+        1120
+      ],
+      "size": [
+        186,
+        66
+      ]
+    },
+    {
+      "id": "done",
+      "type": "frontend",
+      "label": "19. «Заявка принята»",
+      "sublabel": "экран подтверждения",
+      "pos": [
+        960,
+        1030
+      ],
+      "size": [
+        186,
+        60
+      ]
+    },
+    {
+      "id": "done_f",
+      "type": "security",
+      "icon": "failure",
+      "label": "Клиент не видит успеха",
+      "sublabel": "жмёт повторно — дубли заявок",
+      "tag": "«успех» есть, а заявка потерялась",
+      "pos": [
+        960,
+        1120
+      ],
+      "size": [
+        186,
+        66
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Этап 1. Переход по рекламе",
+      "wraps": [
+        "click",
+        "click_f",
+        "tracker",
+        "tracker_f",
+        "dns",
+        "dns_f",
+        "https",
+        "https_f",
+        "waf",
+        "waf_f"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Этап 2. Доставка страницы",
+      "wraps": [
+        "cdn",
+        "cdn_f",
+        "lb",
+        "lb_f",
+        "server",
+        "server_f",
+        "route",
+        "route_f"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Этап 3. Отображение на устройстве",
+      "wraps": [
+        "device",
+        "device_f",
+        "mobile",
+        "mobile_f",
+        "laptop",
+        "laptop_f",
+        "assets",
+        "assets_f",
+        "scripts",
+        "scripts_f",
+        "ready",
+        "ready_f"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Этап 4. Заявка",
+      "wraps": [
+        "form",
+        "form_f",
+        "validate",
+        "validate_f",
+        "captcha",
+        "captcha_f",
+        "submit",
+        "submit_f",
+        "done",
+        "done_f"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "click-risk",
+      "from": "click",
+      "to": "click_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "tracker-risk",
+      "from": "tracker",
+      "to": "tracker_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "dns-risk",
+      "from": "dns",
+      "to": "dns_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "https-risk",
+      "from": "https",
+      "to": "https_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "waf-risk",
+      "from": "waf",
+      "to": "waf_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "cdn-risk",
+      "from": "cdn",
+      "to": "cdn_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "lb-risk",
+      "from": "lb",
+      "to": "lb_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "server-risk",
+      "from": "server",
+      "to": "server_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "route-risk",
+      "from": "route",
+      "to": "route_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "device-risk",
+      "from": "device",
+      "to": "device_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "mobile-risk",
+      "from": "mobile",
+      "to": "mobile_f",
+      "variant": "security",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "laptop-risk",
+      "from": "laptop",
+      "to": "laptop_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "assets-risk",
+      "from": "assets",
+      "to": "assets_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "scripts-risk",
+      "from": "scripts",
+      "to": "scripts_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "ready-risk",
+      "from": "ready",
+      "to": "ready_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "form-risk",
+      "from": "form",
+      "to": "form_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "validate-risk",
+      "from": "validate",
+      "to": "validate_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "captcha-risk",
+      "from": "captcha",
+      "to": "captcha_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "submit-risk",
+      "from": "submit",
+      "to": "submit_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "done-risk",
+      "from": "done",
+      "to": "done_f",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "click-to-tracker",
+      "from": "click",
+      "to": "tracker",
+      "variant": "emphasis"
+    },
+    {
+      "id": "tracker-to-dns",
+      "from": "tracker",
+      "to": "dns",
+      "variant": "emphasis"
+    },
+    {
+      "id": "dns-to-https",
+      "from": "dns",
+      "to": "https",
+      "variant": "emphasis"
+    },
+    {
+      "id": "https-to-waf",
+      "from": "https",
+      "to": "waf",
+      "variant": "emphasis"
+    },
+    {
+      "id": "waf-to-cdn",
+      "from": "waf",
+      "to": "cdn",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "top",
+      "via": [
+        [
+          1180,
+          100
+        ],
+        [
+          1180,
+          283
+        ],
+        [
+          125,
+          283
+        ]
+      ]
+    },
+    {
+      "id": "cdn-to-lb",
+      "from": "cdn",
+      "to": "lb",
+      "variant": "emphasis"
+    },
+    {
+      "id": "lb-to-server",
+      "from": "lb",
+      "to": "server",
+      "variant": "emphasis"
+    },
+    {
+      "id": "server-to-route",
+      "from": "server",
+      "to": "route",
+      "variant": "emphasis"
+    },
+    {
+      "id": "route-to-device",
+      "from": "route",
+      "to": "device",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "top",
+      "via": [
+        [
+          1053,
+          370
+        ],
+        [
+          1053,
+          553
+        ],
+        [
+          125,
+          553
+        ]
+      ]
+    },
+    {
+      "id": "device-to-mobile",
+      "from": "device",
+      "to": "mobile",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "телефон"
+    },
+    {
+      "id": "device-to-laptop",
+      "from": "device",
+      "to": "laptop",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "ноутбук"
+    },
+    {
+      "id": "mobile-to-assets",
+      "from": "mobile",
+      "to": "assets",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "laptop-to-assets",
+      "from": "laptop",
+      "to": "assets",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "assets-to-scripts",
+      "from": "assets",
+      "to": "scripts",
+      "variant": "emphasis"
+    },
+    {
+      "id": "scripts-to-ready",
+      "from": "scripts",
+      "to": "ready",
+      "variant": "emphasis"
+    },
+    {
+      "id": "ready-to-form",
+      "from": "ready",
+      "to": "form",
+      "variant": "emphasis",
+      "fromSide": "right",
+      "toSide": "top",
+      "via": [
+        [
+          1180,
+          776
+        ],
+        [
+          1180,
+          986
+        ],
+        [
+          125,
+          986
+        ]
+      ]
+    },
+    {
+      "id": "form-to-validate",
+      "from": "form",
+      "to": "validate",
+      "variant": "emphasis"
+    },
+    {
+      "id": "validate-to-captcha",
+      "from": "validate",
+      "to": "captcha",
+      "variant": "emphasis"
+    },
+    {
+      "id": "captcha-to-submit",
+      "from": "captcha",
+      "to": "submit",
+      "variant": "emphasis"
+    },
+    {
+      "id": "submit-to-done",
+      "from": "submit",
+      "to": "done",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Как читать схему",
+      "items": [
+        "Стрелки показывают путь клиента слева направо, этап за этапом",
+        "Под каждым шагом — главные причины, почему клиент там «застрянет»",
+        "Третья причина в красном блоке видна при увеличении от 175% (кнопка +)",
+        "Сбой на любом шаге = оплаченный клик без заявки"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Словарь",
+      "items": [
+        "DNS — переводит адрес сайта в адрес сервера",
+        "CDN — копии сайта на серверах ближе к клиенту",
+        "WAF — фильтр, отсеивающий атаки и ботов",
+        "API — «окно», через которое форма передаёт заявку в банк"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Три типа причин",
+      "items": [
+        "Изменения: обновления сайта и настроек (шаги 3, 7, 8, 9)",
+        "Устройства: отдельные телефоны и браузеры (шаги 11а, 11б)",
+        "Чужие сервисы: скрипты, трекеры, капча (шаги 2, 13, 17)"
+      ]
+    }
+  ]
+}
